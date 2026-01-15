@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatalogGuard — See which products are draining your ad budget</title>
+  <meta name="description" content="CatalogGuard connects your Shopify sales with your Meta ad spend—so you can spot underperformers and cut the waste.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+    
+    /* Subtle grid background */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: 
+        linear-gradient(rgba(13, 148, 136, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13, 148, 136, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(248, 250, 252, 0.8);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .nav-container {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    
+    .logo-text span {
+      color: #0d9488;
+    }
+    
+    .nav-cta {
+      background: #f97316;
+      color: white;
+      padding: 0.625rem 1.25rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.875rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    
+    .nav-cta:hover {
+      background: #ea580c;
+      transform: translateY(-2px);
+    }
+    
+    /* Hero */
+    .hero {
+      padding: 10rem 1.5rem 6rem;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .hero-inner {
+      max-width: 896px;
+      margin: 0 auto;
+    }
+    
+    .badge {
+      display: inline-block;
+      background: linear-gradient(to right, rgba(13, 148, 136, 0.1), rgba(16, 185, 129, 0.1));
+      border: 1px solid rgba(13, 148, 136, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #0f766e;
+      margin-bottom: 1.5rem;
+    }
+    
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 3.75rem);
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(to right, #0d9488, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero p {
+      font-size: 1.25rem;
+      color: #64748b;
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+    }
+    
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #f97316;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 1.125rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
+    }
+    
+    .hero-cta:hover {
+      background: #ea580c;
+      transform: translateY(-2px);
+    }
+    
+    .hero-cta svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+    
+    /* Problem Section */
+    .problem {
+      padding: 6rem 1.5rem;
+      background: white;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .section-inner {
+      max-width: 1152px;
+      margin: 0 auto;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .section-header h2 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 1rem;
+    }
+    
+    .section-header p {
+      font-size: 1.125rem;
+      color: #64748b;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .problem-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      padding: 2rem;
+    }
+    
+    .problem-icon {
+      width: 3rem;
+      height: 3rem;
+      background: #fef2f2;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    
+    .problem-icon svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: #ef4444;
+    }
+    
+    .problem-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+    }
+    
+    .problem-card p {
+      color: #64748b;
+    }
+    
+    /* PPP Section */
+    .ppp {
+      padding: 6rem 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .ppp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .ppp-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid;
+    }
+    
+    .ppp-card.prune {
+      border-color: #ef4444;
+    }
+    
+    .ppp-card.preserve {
+      border-color: #f59e0b;
+    }
+    
+    .ppp-card.protect {
+      border-color: #22c55e;
+    }
+    
+    .ppp-label {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+    
+    .ppp-card.prune .ppp-label {
+      background: #fef2f2;
+      color: #dc2626;
+    }
+    
+    .ppp-card.preserve .ppp-label {
+      background: #fffbeb;
+      color: #d97706;
+    }
+    
+    .ppp-card.protect .ppp-label {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+    
+    .ppp-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+    }
+    
+    .ppp-card p {
+      color: #64748b;
+    }
+    
+    /* How It Works */
+    .how-it-works {
+      padding: 6rem 1.5rem;
+      background: white;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+    
+    .step {
+      text-align: center;
+    }
+    
+    .step-number {
+      width: 3rem;
+      height: 3rem;
+      background: linear-gradient(135deg, #0d9488, #0f766e);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin: 0 auto 1rem;
+    }
+    
+    .step h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+    }
+    
+    .step p {
+      color: #64748b;
+      font-size: 0.875rem;
+    }
+    
+    /* Calculator Section */
+    .calculator {
+      padding: 6rem 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .calculator-box {
+      max-width: 640px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 1rem;
+      padding: 2.5rem;
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .calculator-box h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+    
+    .slider-value {
+      font-weight: 600;
+      color: #1e293b;
+    }
+    
+    input[type="range"] {
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: #e2e8f0;
+      appearance: none;
+      margin-bottom: 2rem;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #0d9488;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(13, 148, 136, 0.3);
+    }
+    
+    .calc-results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      text-align: center;
+    }
+    
+    .calc-result {
+      background: #f8fafc;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    }
+    
+    .calc-result.waste {
+      background: #fef2f2;
+    }
+    
+    .calc-result.savings {
+      background: #f0fdf4;
+    }
+    
+    .calc-result-label {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin-bottom: 0.25rem;
+    }
+    
+    .calc-result-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .calc-result.waste .calc-result-value {
+      color: #dc2626;
+    }
+    
+    .calc-result.savings .calc-result-value {
+      color: #16a34a;
+    }
+    
+    .calc-note {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+    
+    /* Pricing */
+    .pricing {
+      padding: 6rem 1.5rem;
+      background: white;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .pricing-card {
+      max-width: 480px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #0d9488, #0f766e);
+      border-radius: 1.5rem;
+      padding: 3rem;
+      color: white;
+      text-align: center;
+    }
+    
+    .pricing-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+    
+    .pricing-card h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .pricing-amount {
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    
+    .pricing-term {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 2rem;
+    }
+    
+    .pricing-features {
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+    
+    .pricing-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .pricing-feature:last-child {
+      border-bottom: none;
+    }
+    
+    .pricing-feature svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: #86efac;
+      flex-shrink: 0;
+    }
+    
+    .pricing-cta {
+      display: block;
+      width: 100%;
+      background: #f97316;
+      color: white;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 1.125rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .pricing-cta:hover {
+      background: #ea580c;
+      transform: translateY(-2px);
+    }
+    
+    .pricing-note {
+      margin-top: 1.25rem;
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    /* FAQ */
+    .faq {
+      padding: 6rem 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .faq-list {
+      max-width: 768px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1e293b;
+      font-family: inherit;
+    }
+    
+    .faq-question svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: #64748b;
+      transition: transform 0.2s;
+    }
+    
+    .faq-item.open .faq-question svg {
+      transform: rotate(180deg);
+    }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .faq-item.open .faq-answer {
+      max-height: 500px;
+    }
+    
+    .faq-answer p {
+      padding-bottom: 1.5rem;
+      color: #64748b;
+    }
+    
+    /* Final CTA */
+    .final-cta {
+      padding: 6rem 1.5rem;
+      background: linear-gradient(135deg, #0d9488, #0f766e);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .final-cta-inner {
+      max-width: 768px;
+      margin: 0 auto;
+      text-align: center;
+      color: white;
+    }
+    
+    .final-cta h2 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .final-cta p {
+      font-size: 1.125rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2rem;
+    }
+    
+    .final-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #f97316;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 1.125rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .final-cta-btn:hover {
+      background: #ea580c;
+      transform: translateY(-2px);
+    }
+    
+    .final-cta-btn svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 2rem 1.5rem;
+      background: #1e293b;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    
+    footer p {
+      color: #64748b;
+      font-size: 0.875rem;
+    }
+    
+    footer a {
+      color: #94a3b8;
+      text-decoration: none;
+    }
+    
+    footer a:hover {
+      color: white;
+    }
+    
+    /* Mobile adjustments */
+    @media (max-width: 640px) {
+      .hero {
+        padding: 8rem 1.5rem 4rem;
+      }
+      
+      .problem, .ppp, .how-it-works, .calculator, .pricing, .faq, .final-cta {
+        padding: 4rem 1.5rem;
+      }
+      
+      .calc-results {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <svg width="32" height="32" viewBox="0 0 50 50">
+          <defs>
+            <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0d9488"/>
+              <stop offset="100%" stop-color="#0f766e"/>
+            </linearGradient>
+          </defs>
+          <path d="M25 2 L45 8 L45 28 C45 38 35 46 25 50 C15 46 5 38 5 28 L5 8 Z" fill="url(#shieldGrad)"/>
+          <rect x="14" y="14" width="22" height="3" rx="1.5" fill="white" opacity="0.9"/>
+          <rect x="14" y="21" width="18" height="3" rx="1.5" fill="white" opacity="0.7"/>
+          <rect x="14" y="28" width="14" height="3" rx="1.5" fill="white" opacity="0.5"/>
+          <path d="M30 33 L35 38 L43 28" stroke="#10b981" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="logo-text">Catalog<span>Guard</span></span>
+      </a>
+      <a href="#pricing" class="nav-cta">Get CatalogGuard</a>
+    </div>
+  </nav>
+  
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="badge">For Shopify stores running Meta catalog ads</span>
+      <h1>Stop Wasting Ad Spend on<br><span class="gradient-text">Dead Products</span></h1>
+      <p>Automatically identify which products are draining your budget and which are driving profit. Connect your Shopify sales data with your Meta ad spend.</p>
+      <a href="#pricing" class="hero-cta">
+        Get CatalogGuard — $97
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+  
+  <!-- Problem Section -->
+  <section class="problem">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>The blind spot in your catalog ads</h2>
+        <p>Meta gives you campaign-level data. But which individual products are actually converting?</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+            </svg>
+          </div>
+          <h3>No product-level ROAS</h3>
+          <p>Meta shows campaign performance, not which SKUs are actually selling.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3>Budget going to dead stock</h3>
+          <p>Out-of-stock or slow-moving items keep eating your ad spend.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+          </div>
+          <h3>Manual spreadsheet hell</h3>
+          <p>Pulling reports, matching SKUs, calculating ROAS by hand? Life's too short.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- PPP Section -->
+  <section class="ppp">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Know exactly what to do with every product</h2>
+        <p>CatalogGuard categorizes your catalog into three clear actions:</p>
+      </div>
+      <div class="ppp-grid">
+        <div class="ppp-card prune">
+          <span class="ppp-label">Prune</span>
+          <h3>Stop wasting money</h3>
+          <p>Products with poor ROAS, low stock, or high out-of-stock rates. Exclude these from your catalog campaigns.</p>
+        </div>
+        <div class="ppp-card preserve">
+          <span class="ppp-label">Preserve</span>
+          <h3>Keep an eye on</h3>
+          <p>Breaking even or close to target. Worth keeping but monitor closely for changes.</p>
+        </div>
+        <div class="ppp-card protect">
+          <span class="ppp-label">Protect</span>
+          <h3>Your winners</h3>
+          <p>High ROAS, good stock levels. Make sure these stay in your catalog and get visibility.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- How It Works -->
+  <section class="how-it-works">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>How it works</h2>
+        <p>Set up once, get ongoing insights.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Connect Shopify</h3>
+          <p>One-click OAuth connection to your store's sales and inventory data.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Connect Meta</h3>
+          <p>Authorize access to your ad account spend data.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Set your targets</h3>
+          <p>Define your break-even ROAS, target ROAS, and stock thresholds.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>See the truth</h3>
+          <p>Get a clear dashboard showing which products to prune, preserve, or protect.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Calculator -->
+  <section class="calculator">
+    <div class="calculator-box">
+      <h2>How much are you wasting?</h2>
+      <div class="slider-label">
+        <span>Monthly ad spend</span>
+        <span class="slider-value">$<span id="spend-value">10,000</span></span>
+      </div>
+      <input type="range" id="spend-slider" min="1000" max="100000" value="10000" step="1000">
+      <div class="calc-results">
+        <div class="calc-result waste">
+          <div class="calc-result-label">Estimated waste (18%)</div>
+          <div class="calc-result-value" id="waste-value">$1,800</div>
+        </div>
+        <div class="calc-result savings">
+          <div class="calc-result-label">Potential savings</div>
+          <div class="calc-result-value" id="savings-value">$900</div>
+        </div>
+      </div>
+      <p class="calc-note">Based on industry averages. CatalogGuard is a one-time $97 purchase.</p>
+    </div>
+  </section>
+  
+  <!-- Pricing -->
+  <section class="pricing" id="pricing">
+    <div class="section-inner">
+      <div class="pricing-card">
+        <span class="pricing-badge">One-time purchase</span>
+        <h2>CatalogGuard</h2>
+        <div class="pricing-amount">$97</div>
+        <p class="pricing-term">Pay once, use forever. No subscription.</p>
+        <div class="pricing-features">
+          <div class="pricing-feature">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>Product-level ROAS dashboard</span>
+          </div>
+          <div class="pricing-feature">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>Shopify + Meta data sync</span>
+          </div>
+          <div class="pricing-feature">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>Prune/Preserve/Protect categorization</span>
+          </div>
+          <div class="pricing-feature">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>Configurable ROAS & stock thresholds</span>
+          </div>
+          <div class="pricing-feature">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>Setup guide + video walkthrough</span>
+          </div>
+          <div class="pricing-feature">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>30 days email support</span>
+          </div>
+        </div>
+        <a href="YOUR_LEMON_SQUEEZY_CHECKOUT_URL" class="pricing-cta">Get CatalogGuard — $97</a>
+        <p class="pricing-note">Instant access after purchase. 14-day refund policy.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Frequently asked questions</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            What exactly am I buying?
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>CatalogGuard is a tool that connects your Shopify store with your Meta ad account to show you product-level performance data. You'll see which products are profitable, which are breaking even, and which are losing money—so you can make informed decisions about what to exclude from your catalog campaigns.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            What data do you access?
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>From Shopify: product info, inventory levels, and order data. From Meta: ad spend broken down by product ID. We only read this data—we never modify your store or ad account.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Does this work with any Shopify store?
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, CatalogGuard works with any Shopify store running Meta catalog campaigns (Advantage+ Shopping, Dynamic Product Ads, etc.). You'll need at least a few days of ad spend data to see meaningful results.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Is there a subscription?
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>No. CatalogGuard is a one-time $97 purchase. You get access forever with no recurring fees. Set it up once and use it as long as you need.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Is there a refund policy?
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. If CatalogGuard doesn't work for your setup or you're not satisfied, contact us within 14 days for a full refund.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How long does setup take?
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>About 5-10 minutes. Connect your Shopify store, connect your Meta ad account, set your target ROAS, and you're done.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <div class="final-cta-inner">
+      <h2>Stop guessing. Start seeing.</h2>
+      <p>One-time purchase. No subscription. See exactly which products are pulling their weight—and which aren't.</p>
+      <a href="#pricing" class="final-cta-btn">
+        Get CatalogGuard — $97
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 CatalogGuard. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+  </footer>
+  
+  <script>
+    // Calculator
+    const slider = document.getElementById('spend-slider');
+    const spendValue = document.getElementById('spend-value');
+    const wasteValue = document.getElementById('waste-value');
+    const savingsValue = document.getElementById('savings-value');
+
+    function updateCalculator() {
+      const spend = parseInt(slider.value);
+      const waste = Math.round(spend * 0.18);
+      const savings = Math.round(waste / 2);
+      
+      spendValue.textContent = spend.toLocaleString();
+      wasteValue.textContent = '$' + waste.toLocaleString();
+      savingsValue.textContent = '$' + savings.toLocaleString();
+    }
+
+    slider.addEventListener('input', updateCalculator);
+
+    // FAQ toggles
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const item = button.parentElement;
+        item.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>
