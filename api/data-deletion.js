@@ -17,7 +17,10 @@ export default function handler(req, res) {
       line-height: 1.6;
     }
     .container { max-width: 600px; margin: 0 auto; }
-    .logo { margin-bottom: 40px; }
+    .logo { margin-bottom: 40px; display: flex; align-items: center; gap: 12px; }
+    .logo-icon { width: 40px; height: 40px; }
+    .logo-text { font-size: 24px; font-weight: 700; }
+    .logo-text span { color: #14b8a6; }
     h1 { font-size: 28px; font-weight: 700; margin-bottom: 24px; color: white; }
     h2 { font-size: 20px; font-weight: 600; margin-top: 32px; margin-bottom: 16px; color: #14b8a6; }
     p { color: #94a3b8; margin-bottom: 16px; }
@@ -44,7 +47,7 @@ export default function handler(req, res) {
 <body>
   <div class="container">
     <div class="logo">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" width="200" height="50">
+      <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
         <defs>
           <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" style="stop-color:#0D9488"/>
@@ -56,9 +59,8 @@ export default function handler(req, res) {
         <rect x="14" y="21" width="18" height="3" rx="1.5" fill="white" opacity="0.7"/>
         <rect x="14" y="28" width="14" height="3" rx="1.5" fill="white" opacity="0.5"/>
         <path d="M30 33 L35 38 L43 28" stroke="#10B981" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="55" y="33" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" fill="#ffffff">Catalog</text>
-        <text x="137" y="33" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" fill="#14b8a6">Guard</text>
       </svg>
+      <div class="logo-text">Catalog<span>Guard</span></div>
     </div>
 
     <h1>Data Deletion Request</h1>
