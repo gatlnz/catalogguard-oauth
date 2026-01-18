@@ -119,12 +119,3 @@ export default function handler(req, res) {
   res.setHeader('Content-Type', 'text/html');
   return res.send(html);
 }
-```
-
-5. Click **Commit changes**
-6. Vercel auto-deploys
-7. URL will be: `https://catalogguard.com/api/data-deletion`
-
-Then in Meta App settings, enter:
-```
-https://catalogguard.com/api/data-deletion
