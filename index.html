@@ -22,7 +22,6 @@
       line-height: 1.6;
     }
     
-    /* Subtle grid background */
     .bg-grid {
       position: fixed;
       inset: 0;
@@ -93,7 +92,7 @@
     
     /* Hero */
     .hero {
-      padding: 10rem 1.5rem 6rem;
+      padding: 10rem 1.5rem 5rem;
       text-align: center;
       position: relative;
       z-index: 10;
@@ -163,6 +162,163 @@
       height: 1.25rem;
     }
     
+    .hero-note {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: #94a3b8;
+    }
+
+    /* Dashboard Preview */
+    .dashboard-preview {
+      padding: 0 1.5rem 4rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .dashboard-container {
+      max-width: 960px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+    }
+
+    .dashboard-header {
+      background: #f8fafc;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dashboard-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .dashboard-dot.red { background: #ef4444; }
+    .dashboard-dot.yellow { background: #f59e0b; }
+    .dashboard-dot.green { background: #22c55e; }
+
+    .dashboard-url {
+      flex: 1;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+
+    .dashboard-body {
+      padding: 1.5rem;
+    }
+
+    .dashboard-title {
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .dashboard-badges {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .dashboard-badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-weight: 500;
+    }
+
+    .dashboard-badge.prune { background: #fef2f2; color: #dc2626; }
+    .dashboard-badge.preserve { background: #fffbeb; color: #d97706; }
+    .dashboard-badge.protect { background: #f0fdf4; color: #16a34a; }
+
+    .dashboard-table {
+      width: 100%;
+      font-size: 0.875rem;
+      border-collapse: collapse;
+    }
+
+    .dashboard-table th {
+      text-align: left;
+      padding: 0.75rem;
+      background: #f8fafc;
+      font-weight: 600;
+      color: #64748b;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .dashboard-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .dashboard-table tr.prune { background: #fef2f2; }
+    .dashboard-table tr.protect { background: #f0fdf4; }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .dashboard-note {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: #94a3b8;
+    }
+
+    /* Agitation Section */
+    .agitation {
+      padding: 4rem 1.5rem;
+      background: #fef2f2;
+      position: relative;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .agitation-inner {
+      max-width: 768px;
+      margin: 0 auto;
+    }
+
+    .agitation h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #dc2626;
+      margin-bottom: 1rem;
+    }
+
+    .agitation > p, .agitation-inner > p {
+      font-size: 1.125rem;
+      color: #7f1d1d;
+    }
+
+    .agitation-example {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      background: #dc2626;
+      border-radius: 0.5rem;
+      color: white;
+      font-size: 0.9375rem;
+    }
+
+    .agitation-example strong {
+      color: #fecaca;
+    }
+    
     /* Problem Section */
     .problem {
       padding: 6rem 1.5rem;
@@ -178,7 +334,7 @@
     
     .section-header {
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
     }
     
     .section-header h2 {
@@ -197,8 +353,20 @@
     
     .problem-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .problem-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .problem-grid {
+        grid-template-columns: 1fr;
+      }
     }
     
     .problem-card {
@@ -235,25 +403,87 @@
     .problem-card p {
       color: #64748b;
     }
+
+    /* Origin Story */
+    .origin {
+      padding: 5rem 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .origin-inner {
+      max-width: 768px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border-radius: 1.5rem;
+      padding: 3rem;
+      color: white;
+    }
+
+    .origin-label {
+      color: #5eead4;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .origin h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .origin p {
+      color: #cbd5e1;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .origin p:last-child {
+      margin-bottom: 0;
+    }
     
     /* PPP Section */
     .ppp {
       padding: 6rem 1.5rem;
+      background: white;
       position: relative;
       z-index: 10;
     }
     
     .ppp-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .ppp-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .ppp-grid .ppp-card:last-child {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .ppp-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .ppp-grid .ppp-card:last-child {
+        grid-column: span 1;
+      }
     }
     
     .ppp-card {
-      background: white;
+      background: #f8fafc;
       border-radius: 1rem;
       padding: 2rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       border-left: 4px solid;
     }
     
@@ -305,25 +535,36 @@
     .ppp-card p {
       color: #64748b;
     }
-    
+
     /* How It Works */
     .how-it-works {
       padding: 6rem 1.5rem;
-      background: white;
       position: relative;
       z-index: 10;
     }
-    
+
     .steps {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 2rem;
     }
-    
+
+    @media (max-width: 900px) {
+      .steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .step {
       text-align: center;
     }
-    
+
     .step-number {
       width: 3rem;
       height: 3rem;
@@ -337,17 +578,329 @@
       font-size: 1.25rem;
       margin: 0 auto 1rem;
     }
-    
+
     .step h3 {
       font-size: 1.125rem;
       font-weight: 600;
       color: #1e293b;
       margin-bottom: 0.5rem;
     }
-    
+
     .step p {
       color: #64748b;
       font-size: 0.875rem;
+    }
+
+    /* Who Is This For */
+    .who-for {
+      padding: 5rem 1.5rem;
+      background: white;
+      position: relative;
+      z-index: 10;
+    }
+
+    .who-for-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .who-for h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #1e293b;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .who-for-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      .who-for-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .who-for-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    }
+
+    .who-for-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .who-for-card p {
+      color: #64748b;
+      font-size: 0.9375rem;
+    }
+
+    .who-for-tagline {
+      text-align: center;
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: #0f766e;
+      font-style: italic;
+    }
+
+    /* Frequency callout */
+    .frequency {
+      padding: 3rem 1.5rem;
+      background: white;
+      position: relative;
+      z-index: 10;
+    }
+
+    .frequency-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      background: linear-gradient(to right, rgba(13, 148, 136, 0.05), rgba(16, 185, 129, 0.05));
+      border: 1px solid rgba(13, 148, 136, 0.2);
+      border-radius: 1rem;
+      padding: 2rem;
+    }
+
+    .frequency h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f766e;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .frequency-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 500px) {
+      .frequency-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .frequency-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      text-align: center;
+    }
+
+    .frequency-item strong {
+      display: block;
+      color: #0f766e;
+      margin-bottom: 0.25rem;
+    }
+
+    .frequency-item span {
+      color: #64748b;
+      font-size: 0.875rem;
+    }
+
+    .frequency p {
+      color: #64748b;
+      text-align: center;
+      font-size: 0.9375rem;
+    }
+
+    /* Expectation Setting / What This Is */
+    .what-this-is {
+      padding: 5rem 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .what-this-is-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .what-this-is h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .what-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 640px) {
+      .what-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .what-column {
+      padding: 2rem;
+    }
+
+    .what-column.is {
+      background: #f0fdf4;
+      border-right: 1px solid #e2e8f0;
+    }
+
+    @media (max-width: 640px) {
+      .what-column.is {
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+      }
+    }
+
+    .what-column.isnt {
+      background: #fef2f2;
+    }
+
+    .what-column h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid;
+    }
+
+    .what-column.is h3 {
+      color: #16a34a;
+      border-color: #16a34a;
+    }
+
+    .what-column.isnt h3 {
+      color: #dc2626;
+      border-color: #dc2626;
+    }
+
+    .what-column ul {
+      list-style: none;
+    }
+
+    .what-column li {
+      padding: 0.625rem 0;
+      color: #475569;
+      font-size: 0.9375rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .what-column li:last-child {
+      border-bottom: none;
+    }
+
+    .what-notes {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .what-notes {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .what-note {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+    }
+
+    .what-note strong {
+      display: block;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .what-note p {
+      color: #64748b;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    /* Comparison Table */
+    .comparison {
+      padding: 5rem 1.5rem;
+      background: white;
+      position: relative;
+      z-index: 10;
+    }
+
+    .comparison-table {
+      max-width: 800px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .comparison-table th {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .comparison-table th:first-child {
+      width: 40%;
+    }
+
+    .comparison-table th.them {
+      background: #f8fafc;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .comparison-table th.us {
+      background: #f0fdf4;
+      color: #16a34a;
+      font-weight: 700;
+    }
+
+    .comparison-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .comparison-table td:first-child {
+      font-weight: 500;
+      color: #1e293b;
+    }
+
+    .comparison-table td.them {
+      color: #64748b;
+    }
+
+    .comparison-table td.us {
+      color: #1e293b;
+      font-weight: 500;
+    }
+
+    .comparison-table .check {
+      color: #16a34a;
+    }
+
+    .comparison-table .x {
+      color: #dc2626;
     }
     
     /* Calculator Section */
@@ -587,6 +1140,7 @@
       height: 1.25rem;
       color: #64748b;
       transition: transform 0.2s;
+      flex-shrink: 0;
     }
     
     .faq-item.open .faq-question svg {
@@ -686,7 +1240,7 @@
     /* Mobile adjustments */
     @media (max-width: 640px) {
       .hero {
-        padding: 8rem 1.5rem 4rem;
+        padding: 8rem 1.5rem 3rem;
       }
       
       .problem, .ppp, .how-it-works, .calculator, .pricing, .faq, .final-cta {
@@ -695,6 +1249,22 @@
       
       .calc-results {
         grid-template-columns: 1fr;
+      }
+
+      .comparison-table {
+        font-size: 0.875rem;
+      }
+
+      .comparison-table th, .comparison-table td {
+        padding: 0.75rem 0.5rem;
+      }
+
+      .dashboard-table {
+        font-size: 0.75rem;
+      }
+
+      .dashboard-table th, .dashboard-table td {
+        padding: 0.5rem;
       }
     }
   </style>
@@ -728,15 +1298,118 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-inner">
-      <span class="badge">For Shopify stores running Meta catalog ads</span>
-      <h1>Stop Wasting Ad Spend on<br><span class="gradient-text">Dead Products</span></h1>
-      <p>Automatically identify which products are draining your budget and which are driving profit. Connect your Shopify sales data with your Meta ad spend.</p>
+      <span class="badge">For Shopify stores running Meta catalog ads (DPA / Advantage+ Shopping)</span>
+      <h1>Stop Wasting Ad Spend on<br><span class="gradient-text">Products That Don't Convert</span></h1>
+      <p>See which products in your dynamic catalog ads are eating your budget and which are actually driving sales. Connect your Shopify data with your Meta ad spend in minutes.</p>
       <a href="#pricing" class="hero-cta">
         Get CatalogGuard — $97
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </a>
+      <p class="hero-note">One-time purchase. No subscription.</p>
+    </div>
+  </section>
+
+  <!-- Dashboard Preview -->
+  <section class="dashboard-preview">
+    <div class="dashboard-container">
+      <div class="dashboard-header">
+        <div class="dashboard-dot red"></div>
+        <div class="dashboard-dot yellow"></div>
+        <div class="dashboard-dot green"></div>
+        <div class="dashboard-url">CatalogGuard — Google Sheets</div>
+      </div>
+      <div class="dashboard-body">
+        <div class="dashboard-title">
+          <span>Product Performance — Last 7 days</span>
+          <div class="dashboard-badges">
+            <span class="dashboard-badge prune">8 Prune</span>
+            <span class="dashboard-badge preserve">23 Preserve</span>
+            <span class="dashboard-badge protect">45 Protect</span>
+          </div>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="dashboard-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Product</th>
+                <th>Meta Spend</th>
+                <th>Revenue</th>
+                <th>ROAS</th>
+                <th>Stock</th>
+                <th>OOS%</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="prune">
+                <td><span class="status-badge">🔴 PRUNE</span></td>
+                <td>Basic Crew Socks - 3 Pack</td>
+                <td>$342.50</td>
+                <td>$0.00</td>
+                <td>0.00</td>
+                <td>45</td>
+                <td>0%</td>
+                <td>No sales</td>
+              </tr>
+              <tr class="prune">
+                <td><span class="status-badge">🔴 PRUNE</span></td>
+                <td>Cotton Tee - White / XS</td>
+                <td>$187.20</td>
+                <td>$29.00</td>
+                <td>0.15</td>
+                <td>12</td>
+                <td>33%</td>
+                <td>Low ROAS</td>
+              </tr>
+              <tr>
+                <td><span class="status-badge">🟠 PRESERVE</span></td>
+                <td>Relaxed Hoodie - Grey / M</td>
+                <td>$156.80</td>
+                <td>$245.00</td>
+                <td>1.56</td>
+                <td>28</td>
+                <td>14%</td>
+                <td>Monitor</td>
+              </tr>
+              <tr class="protect">
+                <td><span class="status-badge">🟢 PROTECT</span></td>
+                <td>Wool Blend Coat - Camel</td>
+                <td>$423.00</td>
+                <td>$1,890.00</td>
+                <td>4.47</td>
+                <td>3</td>
+                <td>67%</td>
+                <td>⚠️ High OOS</td>
+              </tr>
+              <tr class="protect">
+                <td><span class="status-badge">🟢 PROTECT</span></td>
+                <td>Midi Dress - Black / S</td>
+                <td>$287.40</td>
+                <td>$945.00</td>
+                <td>3.29</td>
+                <td>67</td>
+                <td>8%</td>
+                <td>Top performer</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="dashboard-note">📊 Runs in Google Sheets. Your data, your control. Export it, customize it, share it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agitation -->
+  <section class="agitation">
+    <div class="agitation-inner">
+      <h2>Right now, you're probably wasting 15-20% of your catalog budget.</h2>
+      <p>You just can't see which products are the problem. Meta's algorithm loves pushing cheap, low-margin items that get clicks but don't convert.</p>
+      <div class="agitation-example">
+        <strong>Sound familiar?</strong> That $12 pair of socks is eating $300/month in ad spend with zero sales. But you'd never know without checking every single product.
+      </div>
     </div>
   </section>
   
@@ -744,8 +1417,8 @@
   <section class="problem">
     <div class="section-inner">
       <div class="section-header">
-        <h2>Get deeper insights from your catalog ads</h2>
-        <p>Campaign-level data is great. But product-level ROAS is even better.</p>
+        <h2>The data exists. It's just not connected.</h2>
+        <p>You can see what Meta is spending on. You can see what Shopify is selling. Matching them up? That's where it gets messy.</p>
       </div>
       <div class="problem-grid">
         <div class="problem-card">
@@ -754,8 +1427,8 @@
               <path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
             </svg>
           </div>
-          <h3>No product-level ROAS</h3>
-          <p>Go beyond campaign metrics to see which SKUs are actually selling.</p>
+          <h3>No product-level visibility</h3>
+          <p>Meta shows campaign ROAS. But which specific products are dragging you down? That's hidden. When did you last break down by Product ID?</p>
         </div>
         <div class="problem-card">
           <div class="problem-icon">
@@ -763,8 +1436,8 @@
               <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
           </div>
-          <h3>Budget going to dead stock</h3>
-          <p>Out-of-stock or slow-moving items keep eating your ad spend.</p>
+          <h3>Budget going to underperformers</h3>
+          <p>Out-of-stock, low stock, or slow-moving items keep eating your ad spend. And even if you pulled the data, reconciling it takes hours.</p>
         </div>
         <div class="problem-card">
           <div class="problem-icon">
@@ -772,10 +1445,20 @@
               <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
             </svg>
           </div>
-          <h3>Manual spreadsheet hell</h3>
-          <p>Pulling reports, matching SKUs, calculating ROAS by hand? Life's too short.</p>
+          <h3>The "set and forget" trap</h3>
+          <p>Most media buyers set up dynamic ads and hope for the best. There's no time to check every product. So waste goes unnoticed for weeks.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Origin Story -->
+  <section class="origin">
+    <div class="origin-inner">
+      <p class="origin-label">Why we built this</p>
+      <h2>We were wasting thousands without knowing it.</h2>
+      <p>We run a fashion e-commerce store spending $40-50k/month on Meta catalog ads. We could see overall campaign ROAS was fine. But when we finally dug into the product-level data, we found 18% of our spend was going to products with zero or near-zero sales.</p>
+      <p>The problem? There was no easy way to see it. So we built CatalogGuard for ourselves. Now we run it twice a week, flag the underperformers, and cut the waste before it adds up.</p>
     </div>
   </section>
   
@@ -783,41 +1466,135 @@
   <section class="ppp">
     <div class="section-inner">
       <div class="section-header">
-        <h2>Know exactly what to do with every product</h2>
-        <p>CatalogGuard categorizes your catalog into three clear actions:</p>
+        <h2>Every product gets a clear status</h2>
+        <p>CatalogGuard categorizes your catalog based on your ROAS targets:</p>
       </div>
       <div class="ppp-grid">
         <div class="ppp-card prune">
-          <span class="ppp-label">Prune</span>
-          <h3>Stop wasting money</h3>
-          <p>Products with poor ROAS, low stock, or high out-of-stock rates. Exclude these from your catalog campaigns.</p>
+          <span class="ppp-label">🔴 Prune</span>
+          <h3>Cut these from your catalog</h3>
+          <p>Below your break-even ROAS. These products are losing money. Tag them for exclusion from your catalog campaigns.</p>
         </div>
         <div class="ppp-card preserve">
-          <span class="ppp-label">Preserve</span>
-          <h3>Keep an eye on</h3>
-          <p>Breaking even or close to target. Worth keeping but monitor closely for changes.</p>
+          <span class="ppp-label">🟠 Preserve</span>
+          <h3>Keep an eye on these</h3>
+          <p>Above break-even but below your target ROAS. Worth keeping, but monitor closely for changes.</p>
         </div>
         <div class="ppp-card protect">
-          <span class="ppp-label">Protect</span>
+          <span class="ppp-label">🟢 Protect</span>
           <h3>Your winners</h3>
-          <p>High ROAS, good stock levels. Make sure these stay in your catalog and get visibility.</p>
+          <p>At or above your target ROAS. Make sure you've got enough inventory to keep these running—they're making you money.</p>
         </div>
       </div>
     </div>
   </section>
-  
+
+  <!-- What This Is / Isn't -->
+  <section class="what-this-is">
+    <div class="what-this-is-inner">
+      <h2>What CatalogGuard is (and isn't)</h2>
+      <div class="what-grid">
+        <div class="what-column is">
+          <h3>What it is</h3>
+          <ul>
+            <li>A simple tool to spot wasted spend</li>
+            <li>Product-level spend vs. sales data</li>
+            <li>Quick sanity check you run weekly</li>
+            <li>Tags products for exclusion in product sets</li>
+          </ul>
+        </div>
+        <div class="what-column isnt">
+          <h3>What it isn't</h3>
+          <ul>
+            <li>Not an attribution tool</li>
+            <li>Not a replacement for proper analytics</li>
+            <li>Not AI-powered campaign optimization</li>
+            <li>Not a $500/month SaaS platform</li>
+          </ul>
+        </div>
+      </div>
+      <div class="what-notes">
+        <div class="what-note">
+          <strong>📋 You'll need a product set</strong>
+          <p>Before using CatalogGuard, set up a Meta product set that excludes items with the exclusion tag (or add the filter to your existing sets). We include a quick guide—takes about 5 minutes.</p>
+        </div>
+        <div class="what-note">
+          <strong>💰 Quick math check</strong>
+          <p>If your cost-per-purchase on Meta is $30, products priced under $30 will struggle to ever hit positive ROAS. Consider excluding low-margin items upfront.</p>
+        </div>
+      </div>
+      <div class="what-notes" style="margin-top: 1rem;">
+        <div class="what-note" style="grid-column: span 2;">
+          <strong>📦 What's "OOS%" and why does it matter?</strong>
+          <p>OOS% shows what percentage of a product's variants are out of stock. Running ads to a product where half the sizes (or colors, or whatever variants you sell) are unavailable frustrates customers and tanks your conversion rate. We set ours to 60%—seems to be a happy medium—but you can adjust based on what makes sense for your catalog.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="comparison">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Simple tool. Simple price.</h2>
+        <p>We're not trying to be an enterprise platform.</p>
+      </div>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="them">Enterprise Tools</th>
+            <th class="us">CatalogGuard</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Price</td>
+            <td class="them">$99-499/month</td>
+            <td class="us">$97 one-time</td>
+          </tr>
+          <tr>
+            <td>Setup time</td>
+            <td class="them">Hours to days</td>
+            <td class="us">~10 minutes</td>
+          </tr>
+          <tr>
+            <td>Product-level ROAS</td>
+            <td class="them"><span class="check">✓</span></td>
+            <td class="us"><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>AI optimization</td>
+            <td class="them"><span class="check">✓</span></td>
+            <td class="us"><span class="x">✗</span></td>
+          </tr>
+          <tr>
+            <td>Learning curve</td>
+            <td class="them">Significant</td>
+            <td class="us">Minimal</td>
+          </tr>
+          <tr>
+            <td>Ongoing commitment</td>
+            <td class="them">Monthly subscription</td>
+            <td class="us">Use when you want</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
   <!-- How It Works -->
   <section class="how-it-works">
     <div class="section-inner">
       <div class="section-header">
         <h2>How it works</h2>
-        <p>Set up once, get ongoing insights.</p>
+        <p>Set up once, run it whenever you need.</p>
       </div>
       <div class="steps">
         <div class="step">
           <div class="step-number">1</div>
           <h3>Connect Shopify</h3>
-          <p>One-click OAuth connection to your store's sales and inventory data.</p>
+          <p>One-click connection to your store's sales and inventory data.</p>
         </div>
         <div class="step">
           <div class="step-number">2</div>
@@ -827,37 +1604,85 @@
         <div class="step">
           <div class="step-number">3</div>
           <h3>Set your targets</h3>
-          <p>Define your break-even ROAS, target ROAS, and stock thresholds.</p>
+          <p>Define your break-even ROAS and target ROAS.</p>
         </div>
         <div class="step">
           <div class="step-number">4</div>
-          <h3>See the truth</h3>
-          <p>Get a clear dashboard showing which products to prune, preserve, or protect.</p>
+          <h3>Review &amp; act</h3>
+          <p>See which products to prune, preserve, or protect. Tag the losers for exclusion.</p>
         </div>
       </div>
     </div>
   </section>
-  
-  <!-- Calculator -->
+
+  <!-- Frequency -->
+  <section class="frequency">
+    <div class="frequency-inner">
+      <h3>📅 How often should you run it?</h3>
+      <div class="frequency-grid">
+        <div class="frequency-item">
+          <strong>$1,000+/day on catalog ads?</strong>
+          <span>Check twice a week</span>
+        </div>
+        <div class="frequency-item">
+          <strong>Less than that?</strong>
+          <span>Once a week is fine</span>
+        </div>
+      </div>
+      <p>Find your own rhythm. The algorithm needs room to test new products—CatalogGuard just catches when something goes off the rails.</p>
+    </div>
+  </section>
+
+  <!-- Who Is This For -->
+  <section class="who-for">
+    <div class="who-for-inner">
+      <h2>Who is this for?</h2>
+      <div class="who-for-grid">
+        <div class="who-for-card">
+          <h3>🏪 Store owners</h3>
+          <p>Get a simple sanity check without enterprise software or monthly subscriptions eating into your margins.</p>
+        </div>
+        <div class="who-for-card">
+          <h3>📊 Media buyers</h3>
+          <p>Show clients exactly where their budget is going. Walk into meetings with data, not "the algorithm needs to learn."</p>
+        </div>
+        <div class="who-for-card">
+          <h3>🏢 Agencies</h3>
+          <p>Quick wins across multiple client catalogs. Use one sheet per account—duplicate as needed.</p>
+        </div>
+        <div class="who-for-card">
+          <h3>👥 Business partners</h3>
+          <p>Need to explain ad performance to stakeholders who don't speak Meta? This makes it crystal clear.</p>
+        </div>
+      </div>
+      <p class="who-for-tagline">"Finally, something I can show my business partners that actually makes sense."</p>
+    </div>
+  </section>
+    
+  <!-- Calculator Section -->
   <section class="calculator">
     <div class="calculator-box">
-      <h2>How much are you wasting?</h2>
+      <h2>How much could you be wasting?</h2>
       <div class="slider-label">
-        <span>Monthly ad spend</span>
+        <span>Monthly catalog ad spend</span>
         <span class="slider-value">$<span id="spend-value">10,000</span></span>
       </div>
       <input type="range" id="spend-slider" min="1000" max="100000" value="10000" step="1000">
       <div class="calc-results">
         <div class="calc-result waste">
-          <div class="calc-result-label">Estimated waste (18%)</div>
+          <div class="calc-result-label">Likely waste (18%)</div>
           <div class="calc-result-value" id="waste-value">$1,800</div>
         </div>
         <div class="calc-result savings">
-          <div class="calc-result-label">Potential savings</div>
+          <div class="calc-result-label">If you cut half</div>
           <div class="calc-result-value" id="savings-value">$900</div>
         </div>
       </div>
-      <p class="calc-note">Based on industry averages. CatalogGuard is a one-time $97 purchase.</p>
+      <div class="calc-roi" style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: #f0fdf4; border-radius: 0.5rem; border: 1px solid #bbf7d0;">
+        <span style="color: #64748b; font-size: 0.875rem;">At this <strong style="color: #1e293b;">monthly</strong> spend, CatalogGuard pays for itself in</span>
+        <strong style="display: block; color: #16a34a; font-size: 1.5rem; margin-top: 0.25rem;" id="roi-days">3 days</strong>
+      </div>
+      <p class="calc-note">Based on what we found in our own catalog. Your mileage may vary.</p>
     </div>
   </section>
   
@@ -868,25 +1693,25 @@
         <span class="pricing-badge">One-time purchase</span>
         <h2>CatalogGuard</h2>
         <div class="pricing-amount">$97</div>
-        <p class="pricing-term">Pay once, use forever. No subscription.</p>
+        <p class="pricing-term">Pay once. No subscription. No recurring fees.</p>
         <div class="pricing-features">
           <div class="pricing-feature">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M5 13l4 4L19 7"/>
             </svg>
-            <span>Product-level ROAS dashboard</span>
+            <span>Product-level ROAS dashboard (Google Sheets)</span>
           </div>
           <div class="pricing-feature">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M5 13l4 4L19 7"/>
             </svg>
-            <span>Shopify + Meta data sync</span>
+            <span>Shopify + Meta one-click connection</span>
           </div>
           <div class="pricing-feature">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M5 13l4 4L19 7"/>
             </svg>
-            <span>Prune/Preserve/Protect categorization</span>
+            <span>Prune / Preserve / Protect status + actions</span>
           </div>
           <div class="pricing-feature">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -898,7 +1723,13 @@
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M5 13l4 4L19 7"/>
             </svg>
-            <span>Setup guide + video walkthrough</span>
+            <span>Meta product set exclusion guide</span>
+          </div>
+          <div class="pricing-feature">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>Use across multiple stores (duplicate the sheet)</span>
           </div>
           <div class="pricing-feature">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -928,7 +1759,29 @@
             </svg>
           </button>
           <div class="faq-answer">
-            <p>CatalogGuard is a tool that connects your Shopify store with your Meta ad account to show you product-level performance data. You'll see which products are profitable, which are breaking even, and which are losing money—so you can make informed decisions about what to exclude from your catalog campaigns.</p>
+            <p>CatalogGuard is a tool that connects your Shopify store with your Meta ad account to show you product-level performance data. You'll see which products are profitable, which are breaking even, and which are losing money—so you can exclude the losers from your catalog campaigns.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How does the exclusion actually work?
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>CatalogGuard tags underperforming products in Shopify. You then set up a product set in Meta that excludes products with that tag. We include a step-by-step guide showing you exactly how to configure this—it takes about 5 minutes.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Is this an attribution tool?
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>No. CatalogGuard shows you which products are spending vs. which are selling. It's not trying to solve cross-channel attribution or replace your analytics. Think of it as a quick sanity check to catch obvious waste—like that $12 item burning $300/month with zero conversions.</p>
           </div>
         </div>
         <div class="faq-item">
@@ -939,18 +1792,29 @@
             </svg>
           </button>
           <div class="faq-answer">
-            <p>From Shopify: product info, inventory levels, and order data. From Meta: ad spend broken down by product ID. We only read this data—we never modify your store or ad account.</p>
+            <p>From Shopify: product info, inventory levels, and sales data. From Meta: ad spend broken down by product ID. We only read this data—we never modify your store or ad account (except for adding exclusion tags when you tell us to).</p>
           </div>
         </div>
         <div class="faq-item">
           <button class="faq-question">
-            Does this work with any Shopify store?
+            Does this work with Advantage+ Shopping campaigns?
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M19 9l-7 7-7-7"/>
             </svg>
           </button>
           <div class="faq-answer">
-            <p>Yes, CatalogGuard works with any Shopify store running Meta catalog campaigns (Advantage+ Shopping, Dynamic Product Ads, etc.). You'll need at least a few days of ad spend data to see meaningful results.</p>
+            <p>Yes. CatalogGuard works with any Meta campaign type that pulls from your product catalog—Advantage+ Shopping (ASC), Dynamic Product Ads (DPA), Advantage+ Catalog Ads, catalog sales campaigns, whatever Meta calls it this week. If it uses your product feed, we can analyze it.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How often should I run it?
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>We recommend twice a week. That's frequent enough to catch problems before they waste too much budget, but not so often that you're micromanaging. Most people pick two days (like Monday and Thursday) and make it a 10-minute routine.</p>
           </div>
         </div>
         <div class="faq-item">
@@ -961,29 +1825,18 @@
             </svg>
           </button>
           <div class="faq-answer">
-            <p>No. CatalogGuard is a one-time $97 purchase. You get access forever with no recurring fees. Set it up once and use it as long as you need.</p>
+            <p>No. CatalogGuard is a one-time $97 purchase. You get access with no recurring fees. Use it as long as you need.</p>
           </div>
         </div>
         <div class="faq-item">
           <button class="faq-question">
-            Is there a refund policy?
+            What if it doesn't work for me?
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M19 9l-7 7-7-7"/>
             </svg>
           </button>
           <div class="faq-answer">
-            <p>Yes. If CatalogGuard doesn't work for your setup or you're not satisfied, contact us within 14 days for a full refund.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question">
-            How long does setup take?
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <div class="faq-answer">
-            <p>About 5-10 minutes. Connect your Shopify store, connect your Meta ad account, set your target ROAS, and you're done.</p>
+            <p>If CatalogGuard doesn't work for your setup or you're not satisfied, contact us within 14 days for a full refund. No questions asked.</p>
           </div>
         </div>
       </div>
@@ -994,7 +1847,7 @@
   <section class="final-cta">
     <div class="final-cta-inner">
       <h2>Stop guessing. Start seeing.</h2>
-      <p>One-time purchase. No subscription. See exactly which products are pulling their weight—and which aren't.</p>
+      <p>Find out which products are wasting your budget. One-time $97 purchase.</p>
       <a href="#pricing" class="final-cta-btn">
         Get CatalogGuard — $97
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -1015,19 +1868,30 @@
     const spendValue = document.getElementById('spend-value');
     const wasteValue = document.getElementById('waste-value');
     const savingsValue = document.getElementById('savings-value');
-
+    const roiDays = document.getElementById('roi-days');
+    
     function updateCalculator() {
       const spend = parseInt(slider.value);
       const waste = Math.round(spend * 0.18);
       const savings = Math.round(waste / 2);
+      const dailySavings = savings / 30;
+      const daysToROI = dailySavings > 0 ? Math.ceil(97 / dailySavings) : 999;
       
       spendValue.textContent = spend.toLocaleString();
       wasteValue.textContent = '$' + waste.toLocaleString();
       savingsValue.textContent = '$' + savings.toLocaleString();
+      
+      if (daysToROI <= 1) {
+        roiDays.textContent = '1 day';
+      } else if (daysToROI > 90) {
+        roiDays.textContent = '~3 months';
+      } else {
+        roiDays.textContent = daysToROI + ' days';
+      }
     }
-
+    
     slider.addEventListener('input', updateCalculator);
-
+    
     // FAQ toggles
     document.querySelectorAll('.faq-question').forEach(button => {
       button.addEventListener('click', () => {
