@@ -180,7 +180,24 @@
 <body>
   <div class="container">
     <div class="logo-section">
-      <img src="https://raw.githubusercontent.com/gatlnz/catalogguard-oauth/main/catalogguard-logo-dark.svg" alt="CatalogGuard">
+      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="60" viewBox="0 0 280 60" style="margin-bottom: 20px;">
+        <defs>
+          <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#0D9488"/>
+            <stop offset="100%" style="stop-color:#0F766E"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(0, 5)">
+          <path d="M25 2 L45 8 L45 28 C45 38 35 46 25 50 C15 46 5 38 5 28 L5 8 Z" fill="url(#shieldGrad)" />
+          <rect x="14" y="16" width="22" height="2.5" rx="1" fill="white" opacity="0.9"/>
+          <rect x="14" y="22" width="18" height="2.5" rx="1" fill="white" opacity="0.7"/>
+          <rect x="14" y="28" width="14" height="2.5" rx="1" fill="white" opacity="0.5"/>
+          <path d="M32 34 L36 38 L42 30" stroke="#10B981" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <text x="58" y="40" font-family="DM Sans, system-ui, sans-serif" font-size="28" font-weight="700" fill="#e2e8f0">
+          <tspan fill="#e2e8f0">Catalog</tspan><tspan fill="#2dd4bf">Guard</tspan>
+        </text>
+      </svg>
       <h1>Let's Get You Set Up</h1>
       <p>4 quick steps to start seeing product-level ROAS</p>
     </div>
