@@ -129,7 +129,7 @@ export default function handler(req, res) {
           </form>
           
           <div class="example">
-            <strong>Example:</strong> If your store is <code>boxhill.myshopify.com</code>, just enter <strong>boxhill</strong>
+            <strong>Example:</strong> If your store is <code>mystore.myshopify.com</code>, just enter <strong>mystore</strong>
           </div>
         </div>
       </body>
