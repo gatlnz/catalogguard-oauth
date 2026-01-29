@@ -1,159 +1,298 @@
-export default function handler(req, res) {
-  const shopifyClientId = process.env.SHOPIFY_CLIENT_ID;
-  const redirectUri = 'https://catalogguard-oauth.vercel.app/api/shopify/callback';
-  
-  // Get shop from query parameter
-  const shop = req.query.shop;
-  
-  // If no shop provided, show input form
-  if (!shop) {
-    return res.send(`
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>Connect Shopify - CatalogGuard</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <style>
-          * { margin: 0; padding: 0; box-sizing: border-box; }
-          body { 
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #e2e8f0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-          }
-          .container {
-            max-width: 500px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(45, 212, 191, 0.2);
-            border-radius: 16px;
-            padding: 40px;
-          }
-          h1 {
-            color: #2dd4bf;
-            font-size: 28px;
-            margin-bottom: 10px;
-          }
-          p {
-            color: #94a3b8;
-            margin-bottom: 30px;
-            line-height: 1.6;
-          }
-          label {
-            display: block;
-            color: #cbd5e1;
-            font-weight: 600;
-            margin-bottom: 10px;
-          }
-          .input-group {
-            display: flex;
-            gap: 0;
-            margin-bottom: 20px;
-          }
-          input {
-            flex: 1;
-            padding: 14px 16px;
-            background: #1e293b;
-            border: 1px solid rgba(45, 212, 191, 0.3);
-            border-right: none;
-            border-radius: 8px 0 0 8px;
-            color: #e2e8f0;
-            font-size: 16px;
-            font-family: 'DM Sans', sans-serif;
-          }
-          input:focus {
-            outline: none;
-            border-color: #2dd4bf;
-          }
-          .suffix {
-            padding: 14px 16px;
-            background: #1e293b;
-            border: 1px solid rgba(45, 212, 191, 0.3);
-            border-left: none;
-            border-radius: 0 8px 8px 0;
-            color: #64748b;
-            font-size: 16px;
-          }
-          button {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #0D9488 0%, #0F766E 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'DM Sans', sans-serif;
-            transition: transform 0.2s;
-          }
-          button:hover {
-            transform: translateY(-2px);
-          }
-          .example {
-            margin-top: 15px;
-            padding: 12px;
-            background: rgba(251, 191, 36, 0.1);
-            border-left: 3px solid #fbbf24;
-            border-radius: 6px;
-            font-size: 14px;
-            color: #fbbf24;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h1>🛍️ Connect Shopify</h1>
-          <p>Enter your Shopify store name to connect</p>
-          
-          <form method="GET" action="/api/shopify">
-            <label>Your Store Name:</label>
-            <div class="input-group">
-              <input 
-                type="text" 
-                name="shop" 
-                placeholder="yourstore" 
-                required
-                pattern="[a-zA-Z0-9-]+"
-                title="Store name only (no special characters)"
-              />
-              <span class="suffix">.myshopify.com</span>
-            </div>
-            
-            <button type="submit">Continue to Shopify →</button>
-          </form>
-          
-          <div class="example">
-            <strong>Example:</strong> If your store is <code>mystore.myshopify.com</code>, just enter <strong>mystore</strong>
-          </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup - CatalogGuard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container { max-width: 800px; margin: 0 auto; }
+    
+    .logo-section {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .logo-section img {
+      height: 60px;
+      width: auto;
+      margin-bottom: 20px;
+    }
+    .logo-section h1 {
+      color: #2dd4bf;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .logo-section p {
+      color: #94a3b8;
+      font-size: 18px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 30px;
+    }
+
+    .step {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(45, 212, 191, 0.2);
+      border-radius: 12px;
+      padding: 30px;
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -15px;
+      left: 30px;
+      background: linear-gradient(135deg, #0D9488 0%, #0F766E 100%);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .step h2 {
+      color: #2dd4bf;
+      font-size: 24px;
+      margin-bottom: 15px;
+      padding-top: 10px;
+    }
+
+    .step p {
+      color: #cbd5e1;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .big-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #0D9488 0%, #0F766E 100%);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .big-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(13, 148, 136, 0.3);
+    }
+
+    .warning-box {
+      background: rgba(251, 113, 22, 0.1);
+      border-left: 4px solid #F97316;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .warning-box h3 {
+      color: #F97316;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .warning-box p {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .warning-box ol {
+      margin-top: 10px;
+      padding-left: 20px;
+      color: #cbd5e1;
+    }
+
+    .warning-box li {
+      margin-bottom: 5px;
+    }
+
+    .instruction-list {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .instruction-list p {
+      margin-bottom: 10px;
+    }
+
+    .instruction-list ol {
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
+    .instruction-list li {
+      color: #cbd5e1;
+      margin-bottom: 10px;
+      padding-left: 10px;
+    }
+
+    .instruction-list strong {
+      color: #2dd4bf;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(45, 212, 191, 0.2);
+    }
+
+    footer p {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #2dd4bf;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-section">
+      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="60" viewBox="0 0 280 60" style="margin-bottom: 20px;">
+        <defs>
+          <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#0D9488"/>
+            <stop offset="100%" style="stop-color:#0F766E"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(0, 5)">
+          <path d="M25 2 L45 8 L45 28 C45 38 35 46 25 50 C15 46 5 38 5 28 L5 8 Z" fill="url(#shieldGrad)" />
+          <rect x="14" y="16" width="22" height="2.5" rx="1" fill="white" opacity="0.9"/>
+          <rect x="14" y="22" width="18" height="2.5" rx="1" fill="white" opacity="0.7"/>
+          <rect x="14" y="28" width="14" height="2.5" rx="1" fill="white" opacity="0.5"/>
+          <path d="M32 34 L36 38 L42 30" stroke="#10B981" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <text x="58" y="40" font-family="DM Sans, system-ui, sans-serif" font-size="28" font-weight="700" fill="#e2e8f0">
+          <tspan fill="#e2e8f0">Catalog</tspan><tspan fill="#2dd4bf">Guard</tspan>
+        </text>
+      </svg>
+      <h1>Let's Get You Set Up</h1>
+      <p>4 quick steps to start seeing product-level ROAS</p>
+    </div>
+
+    <div class="steps">
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-number">1</div>
+        <h2>Create Your Dashboard</h2>
+        <p>Click the button below to create your own copy of the CatalogGuard dashboard. This will open a new tab and automatically create a copy in your Google Drive.</p>
+        
+        <p style="color: #fbbf24; font-size: 14px; margin-bottom: 15px;">💡 <strong>Tip:</strong> If you have multiple Google accounts, make sure you're logged into the one you want to use for CatalogGuard before clicking below.</p>
+        
+        <a href="https://docs.google.com/spreadsheets/d/1AdUwxWT-1trZTTUu75oJzGlNBkAoX8zjsRXwPqI0xC0/copy" class="big-button" target="_blank">
+          📊 Create My CatalogGuard Dashboard
+        </a>
+
+        <div class="warning-box">
+          <h3>⚠️ You'll see a security warning</h3>
+          <p>Google shows this because our script isn't verified yet (we're working on it). The script is safe - it only connects to Shopify and Meta with the tokens you provide.</p>
+          <p><strong>To proceed:</strong></p>
+          <ol>
+            <li>Click <strong>"Advanced"</strong></li>
+            <li>Click <strong>"Go to CatalogGuard (unsafe)"</strong></li>
+            <li>Click <strong>"Allow"</strong></li>
+          </ol>
         </div>
-      </body>
-      </html>
-    `);
-  }
-  
-  // Clean up shop name
-  let cleanShop = shop.toLowerCase().trim();
-  
-  // Remove .myshopify.com if user included it
-  cleanShop = cleanShop.replace('.myshopify.com', '');
-  
-  // Remove https:// or http:// if user included it
-  cleanShop = cleanShop.replace(/^https?:\/\//, '');
-  
-  // Add .myshopify.com
-  const fullShop = `${cleanShop}.myshopify.com`;
-  
-  const shopifyAuthUrl = `https://${fullShop}/admin/oauth/authorize?` +
-    `client_id=${shopifyClientId}&` +
-    `scope=read_products,write_products,read_inventory,read_orders&` +
-    `redirect_uri=${encodeURIComponent(redirectUri)}`;
-  
-  // Redirect to Shopify OAuth
-  res.redirect(302, shopifyAuthUrl);
-}
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <div class="step-number">2</div>
+        <h2>Connect Shopify</h2>
+        <p>Connect your Shopify store to pull product and order data.</p>
+        
+        <p style="color: #fbbf24; font-size: 14px; margin-bottom: 15px;">💡 <strong>Tip:</strong> Make sure you're logged into your Shopify store before clicking the button below.</p>
+        
+        <a href="/api/shopify" class="big-button" target="_blank">
+          🛍️ Connect Shopify
+        </a>
+
+        <div class="instruction-list">
+          <p><strong>After connecting:</strong></p>
+          <ol>
+            <li>You'll be redirected to Shopify to authorize access</li>
+            <li>You'll see a success page with your access token</li>
+            <li>Copy the token and paste it into your dashboard's <strong>Config</strong> tab (cell B5)</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step">
+        <div class="step-number">3</div>
+        <h2>Connect Meta</h2>
+        <p>Connect your Meta ad account to pull spend and performance data.</p>
+        
+        <p style="color: #fbbf24; font-size: 14px; margin-bottom: 15px;">💡 <strong>Tip:</strong> Make sure you're logged into Facebook with the account that has access to your ad account.</p>
+        
+        <a href="/api/meta" class="big-button" target="_blank">
+          📱 Connect Meta
+        </a>
+
+        <div class="instruction-list">
+          <p><strong>After connecting:</strong></p>
+          <ol>
+            <li>You'll be redirected to Facebook to authorize access</li>
+            <li>Select your ad account</li>
+            <li>You'll see a success page with your access token and ad account ID</li>
+            <li>Copy the <strong>token</strong> to Config cell <strong>B6</strong></li>
+            <li>Copy the <strong>ad account ID</strong> to Config cell <strong>B7</strong></li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step">
+        <div class="step-number">4</div>
+        <h2>Run Your First Sync</h2>
+        <p>Once you've added all your credentials to the Config tab:</p>
+        
+        <div class="instruction-list">
+          <ol>
+            <li>Go to your CatalogGuard dashboard</li>
+            <li>Click the <strong>🛡️ CatalogGuard</strong> menu at the top</li>
+            <li>Click <strong>📊 Sync Data</strong></li>
+            <li>Wait 30-60 seconds while it fetches your data</li>
+            <li>View your results in the <strong>Dashboard</strong> tab</li>
+          </ol>
+        </div>
+
+        <p style="margin-top: 20px; color: #10B981; font-weight: 600;">✅ That's it! You'll see which products to Prune, Preserve, or Protect.</p>
+      </div>
+    </div>
+
+    <footer>
+      <p>Need help? Email <a href="/cdn-cgi/l/email-protection#ff8c8a8f8f908d8bbf9c9e8b9e939098988a9e8d9bd19c9092"><span class="__cf_email__" data-cfemail="1c6f696c6c736e685c7f7d687d70737b7b697d6e78327f7371">[email&#160;protected]</span></a></p>
+      <p style="margin-top: 10px;">
